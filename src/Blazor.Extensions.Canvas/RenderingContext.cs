@@ -93,19 +93,9 @@ public abstract class RenderingContext : IDisposable
         return await this._jsRuntime.InvokeAsync<T>($"{NAMESPACE_PREFIX}.{this._contextName}.{GET_PROPERTY_ACTION}", this.Canvas, property);
     }
 
-    protected T CallMethod<T>(string method)
-    {
-        return this.CallMethodAsync<T>(method).GetAwaiter().GetResult();
-    }
-
     protected async Task<T> CallMethodAsync<T>(string method)
     {
         return await this._jsRuntime.InvokeAsync<T>($"{NAMESPACE_PREFIX}.{this._contextName}.{CALL_METHOD_ACTION}", this.Canvas, method);
-    }
-
-    protected T CallMethod<T>(string method, params object[] value)
-    {
-        return this.CallMethodAsync<T>(method, value).GetAwaiter().GetResult();
     }
 
     protected async Task<T> CallMethodAsync<T>(string method, params object[] value)
