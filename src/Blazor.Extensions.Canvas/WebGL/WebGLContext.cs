@@ -203,9 +203,9 @@ public class WebGLContext : RenderingContext
     public async Task GenerateMipmapAsync(TextureType target) => await this.BatchCallAsync(GENERATE_MIPMAP, isMethodCall: true, target);
     public async Task<T> GetTexParameterAsync<T>(TextureType target, TextureParameter pname) => await this.CallMethodAsync<T>(GET_TEX_PARAMETER, target, pname);
     public async Task<bool> IsTextureAsync(WebGLTexture texture) => await this.CallMethodAsync<bool>(IS_TEXTURE, texture);
-    public async Task TexImage2DAsync<T>(Texture2DType target, int level, PixelFormat internalFormat, int width, int height, PixelFormat format, PixelType type, T[] pixels)
+    public async Task TexImage2DAsync<T>(Texture2DType target, int level, PixelFormat internalFormat, int width, int height, int border, PixelFormat format, PixelType type, T[] pixels)
         where T : struct
-        => await this.BatchCallAsync(TEX_IMAGE_2D, isMethodCall: true, target, level, internalFormat, width, height, format, type, pixels);
+        => await this.BatchCallAsync(TEX_IMAGE_2D, isMethodCall: true, target, level, internalFormat, width, height, border, format, type, pixels);
     public async Task TexSubImage2DAsync<T>(Texture2DType target, int level, int xoffset, int yoffset, int width, int height, PixelFormat format, PixelType type, T[] pixels)
         where T : struct
         => await this.BatchCallAsync(TEX_SUB_IMAGE_2D, isMethodCall: true, target, level, xoffset, yoffset, width, height, format, type, pixels);
