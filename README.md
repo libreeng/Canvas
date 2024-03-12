@@ -1,16 +1,12 @@
 # Canvas
 HTML5 Canvas API implementation for Microsoft Blazor
 
-[![Build](https://github.com/BlazorExtensions/Canvas/workflows/CI/badge.svg)](https://github.com/BlazorExtensions/Canvas/actions)
+[![Build](https://github.com/libreeng/Canvas/workflows/CI/badge.svg)](https://github.com/libreeng/Canvas/actions)
 [![Package Version](https://img.shields.io/nuget/v/Blazor.Extensions.Canvas.svg)](https://www.nuget.org/packages/Blazor.Extensions.Canvas)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Blazor.Extensions.Canvas.svg)](https://www.nuget.org/packages/Blazor.Extensions.Canvas)
-[![License](https://img.shields.io/github/license/BlazorExtensions/Canvas.svg)](https://github.com/BlazorExtensions/Canvas/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/libreeng/Canvas.svg)](https://github.com/libreeng/Canvas/blob/master/LICENSE)
 
-# Blazor Extensions
-
-Blazor Extensions are a set of packages with the goal of adding useful things to [Blazor](https://blazor.net).
-
-# Blazor Extensions Canvas
+# Blazor Canvas
 
 This package wraps [HTML5 Canvas](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) APIs. 
 
@@ -128,8 +124,7 @@ Please feel free to use the component, open issues, fix bugs or provide feedback
 
 # Contributors
 
-The following people are the maintainers of the Blazor Extensions projects:
+The following people are the maintainers of the Blazor Canvas project:
 
-- [Attila Hajdrik](https://github.com/attilah)
-- [Gutemberg Ribiero](https://github.com/galvesribeiro)
+- [Shawn Baker @ Librestream](https://github.com/libreeng)
 
