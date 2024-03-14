@@ -400,3 +400,4 @@ FodyWeavers.xsd
 # Canvas specific
 dist/
 **/Properties/launchSettings.json
+blazor.extensions.canvas.js
