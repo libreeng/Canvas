@@ -28,7 +28,7 @@ export class ContextManager {
     if (!canvas) throw new Error('Invalid canvas.');
     if (this.contexts.get(canvas.id)) return;
 
-    var context;
+    let context;
     if (parameters)
       context = canvas.getContext(this.contextName, parameters);
     else
@@ -114,7 +114,7 @@ export class ContextManager {
       let binStr = window.atob(object);
       let length = binStr.length;
       let bytes = new Uint8Array(length);
-      for (var i = 0; i < length; i++) {
+      for (let i = 0; i < length; i++) {
           bytes[i] = binStr.charCodeAt(i);
       }
       return bytes;
