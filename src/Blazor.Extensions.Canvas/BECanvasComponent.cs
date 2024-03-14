@@ -25,7 +25,7 @@ public class BECanvasComponent : ComponentBase
     public long Width { get; set; }
 
     [Inject]
-    internal IJSRuntime JSRuntime { get; }
+    internal IJSRuntime JSRuntime { get; set; }
 
     protected ElementReference _canvasRef;
 
@@ -44,10 +44,5 @@ public class BECanvasComponent : ComponentBase
     public async Task<WebGLContext> CreateWebGLAsync(WebGLContextAttributes attributes)
     {
         return await new WebGLContext(this, attributes).InitializeAsync().ConfigureAwait(false) as WebGLContext;
-    }
-
-    public async Task<string> ToDataURLAsync(string type = "image/png", float encoderOptions = 1)
-    {
-        return await this.JSRuntime.InvokeAsync<string>("ToDataURL", this, type, encoderOptions);
     }
 }
