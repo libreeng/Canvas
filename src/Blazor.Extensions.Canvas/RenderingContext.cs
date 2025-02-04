@@ -24,6 +24,7 @@ public abstract class RenderingContext : IDisposable
     private bool _awaitingBatchedCall;
     private bool _batching;
     private bool _initialized;
+    private string _canvasId;
 
     public ElementReference Canvas { get; }
 
@@ -44,7 +45,7 @@ public abstract class RenderingContext : IDisposable
         await this._semaphoreSlim.WaitAsync();
         if (!this._initialized)
         {
-            await this._jsRuntime.InvokeAsync<object>($"{NAMESPACE_PREFIX}.{this._contextName}.{ADD_ACTION}", this.Canvas, this._parameters);
+            this._canvasId = await this._jsRuntime.InvokeAsync<string>($"{NAMESPACE_PREFIX}.{this._contextName}.{ADD_ACTION}", this.Canvas, this._parameters);
             await this.ExtendedInitializeAsync();
             this._initialized = true;
         }
@@ -90,17 +91,17 @@ public abstract class RenderingContext : IDisposable
 
     protected async Task<T> GetPropertyAsync<T>(string property)
     {
-        return await this._jsRuntime.InvokeAsync<T>($"{NAMESPACE_PREFIX}.{this._contextName}.{GET_PROPERTY_ACTION}", this.Canvas, property);
+        return await this._jsRuntime.InvokeAsync<T>($"{NAMESPACE_PREFIX}.{this._contextName}.{GET_PROPERTY_ACTION}", this._canvasId, property);
     }
 
     protected async Task<T> CallMethodAsync<T>(string method)
     {
-        return await this._jsRuntime.InvokeAsync<T>($"{NAMESPACE_PREFIX}.{this._contextName}.{CALL_METHOD_ACTION}", this.Canvas, method);
+        return await this._jsRuntime.InvokeAsync<T>($"{NAMESPACE_PREFIX}.{this._contextName}.{CALL_METHOD_ACTION}", this._canvasId, method);
     }
 
     protected async Task<T> CallMethodAsync<T>(string method, params object[] value)
     {
-        return await this._jsRuntime.InvokeAsync<T>($"{NAMESPACE_PREFIX}.{this._contextName}.{CALL_METHOD_ACTION}", this.Canvas, method, value);
+        return await this._jsRuntime.InvokeAsync<T>($"{NAMESPACE_PREFIX}.{this._contextName}.{CALL_METHOD_ACTION}", this._canvasId, method, value);
     }
 
     private async Task BatchCallInnerAsync()
@@ -110,7 +111,7 @@ public abstract class RenderingContext : IDisposable
         this._batchedCallObjects.Clear();
         this._semaphoreSlim.Release();
 
-        _ = await this._jsRuntime.InvokeAsync<object>($"{NAMESPACE_PREFIX}.{this._contextName}.{CALL_BATCH_ACTION}", this.Canvas, currentBatch);
+        _ = await this._jsRuntime.InvokeAsync<object>($"{NAMESPACE_PREFIX}.{this._contextName}.{CALL_BATCH_ACTION}", this._canvasId, currentBatch);
 
         await this._semaphoreSlim.WaitAsync();
         this._awaitingBatchedCall = false;
@@ -120,7 +121,7 @@ public abstract class RenderingContext : IDisposable
 
     public void Dispose()
     {
-        Task.Run(async () => await this._jsRuntime.InvokeAsync<object>($"{NAMESPACE_PREFIX}.{this._contextName}.{REMOVE_ACTION}", this.Canvas));
+        Task.Run(async () => await this._jsRuntime.InvokeAsync<object>($"{NAMESPACE_PREFIX}.{this._contextName}.{REMOVE_ACTION}", this._canvasId));
     }
 
     #endregion

@@ -3,7 +3,7 @@
     <Title>Blazor Extensions Canvas</Title>
     <Description>HTML5 Canvas API implementation for ASP.NET Core Blazor.</Description>
     <PackageId>Blazor.Extensions.Canvas</PackageId>
-    <PackageVersion>1.1.2</PackageVersion>
+    <PackageVersion>1.1.2.3</PackageVersion>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>Library</OutputType>

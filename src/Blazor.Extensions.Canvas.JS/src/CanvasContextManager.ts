@@ -37,29 +37,30 @@ export class ContextManager {
     if (!context) throw new Error('Invalid context.');
 
     this.contexts.set(canvas.id, context);
+    return canvas.id;
   }
 
-  public remove = (canvas: HTMLCanvasElement) => {
-    this.contexts.delete(canvas.id);
+  public remove = (canvasId: string) => {
+    this.contexts.delete(canvasId);
   }
 
-  public setProperty = (canvas: HTMLCanvasElement, property: string, value: any) => {
-    const context = this.getContext(canvas);
+  public setProperty = (canvasId: string, property: string, value: any) => {
+    const context = this.getContext(canvasId);
     this.setPropertyWithContext(context, property, value);
   }
 
-  public getProperty = (canvas: HTMLCanvasElement, property: string) => {
-    const context = this.getContext(canvas);
+  public getProperty = (canvasId: string, property: string) => {
+    const context = this.getContext(canvasId);
     return this.serialize(context[property]);
   }
 
-  public call = (canvas: HTMLCanvasElement, method: string, args: any) => {
-    const context = this.getContext(canvas);
+  public call = (canvasId: string, method: string, args: any) => {
+    const context = this.getContext(canvasId);
     return this.callWithContext(context, method, args);
   }
 
-  public callBatch = (canvas: HTMLCanvasElement, batchedCalls: any[][]) => {
-    const context = this.getContext(canvas);
+  public callBatch = (canvasId: string, batchedCalls: any[][]) => {
+    const context = this.getContext(canvasId);
     for (let i = 0; i < batchedCalls.length; i++) {
       let params = batchedCalls[i].slice(2);
       if (batchedCalls[i][1]) {
@@ -94,10 +95,10 @@ export class ContextManager {
     context[property] = this.deserialize(property, value);
   }
 
-  private getContext = (canvas: HTMLCanvasElement) => {
-    if (!canvas) throw new Error('Invalid canvas.');
+  private getContext = (canvasId: string) => {
+    if (!canvasId) throw new Error('Invalid canvas ID.');
 
-    const context = this.contexts.get(canvas.id);
+    const context = this.contexts.get(canvasId);
     if (!context) throw new Error('Invalid context.');
 
     return context;
